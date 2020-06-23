@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+  <style type="text/css">
+
+    body{
+      background-color: #f4837d;
+    }
+
+    .corps{
+      width: 300px;
+      height: 300px;
+      background-color: #fdceac;
+      margin-left: 500px;
+      margin-top: 80px;
+      opacity: 0.3;
+      border: 20px solid white;
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand{
+      width: 50%;
+      height: 5px;
+      background: black;
+      position: absolute;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+    span{
+      font-style: italic;
+      font-weight: bold;
+      font-style: 'Verdana';
+    }
+
+    h3{
+      color: white;
+      font-weight: bold;
+      font-style: 'Verdana';
+      text-align: center;
+      font-size: 60px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="montre">
+    <h3><span>My</span>Clock</h3>
+    <div class="corps">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  <script>
+    const second_aig= document.querySelector('.second-hand');
+    const hour_aig= document.querySelector('.hour-hand');
+    const minute_aig= document.querySelector('.min-hand');
+
+    function setDate(){
+      const dates= new Date(); //Pour recuperer la date actuelle, on utilise la fonction Date() avec grand D
+      const second= dates.getSeconds(); //Pour recuperer second dans date
+      const secondDeg= ((second / 60) * 360) + 90;
+      second_aig.style.transform= `rotate(${secondDeg}deg)`;
+
+      const minute= dates.getMinutes();
+      const minuteDeg= ((minute / 60) * 360) + ((second / 60) * 6) + 90;
+      minute_aig.style.transform= `rotate(${minuteDeg}deg)`;
+
+      const heure= dates.getHours();
+      const heureDeg= ((heure / 12) * 360) + (((minute / 60) * 30) + 90);
+      hour_aig.style.transform= `rotate(${heureDeg}deg)`;
+      }
+
+      setInterval(setDate, 1000);
+      setDate();
+
+  </script>
+</body>
+</html>
